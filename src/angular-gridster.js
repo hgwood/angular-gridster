@@ -342,10 +342,15 @@
 					}
 				}
 
-				item.oldRow = item.row = row;
-				item.oldColumn = item.col = column;
-
-				this.moveOverlappingItems(item, ignoreItems);
+				if (gridster.pushing === false && this.getItems(row, column, item.sizeX, item.sizeY, item).length > 0) {
+					item.row = item.oldRow;
+					item.col = item.oldColumn;
+					return;
+				} else {
+					item.oldRow = item.row = row;
+					item.oldColumn = item.col = column;
+					this.moveOverlappingItems(item, ignoreItems);
+				}
 
 				if (!this.grid[row]) {
 					this.grid[row] = [];
